@@ -17,6 +17,7 @@ services:
     ports:
       - "3025:3000"
     environment:
+      TZ: "Europe/Paris"
       GF_SECURITY_ADMIN_PASSWORD: grafana
     volumes:
       - grafana_data:/var/lib/grafana
@@ -30,6 +31,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    environment:
+      TZ: "Europe/Paris"
     networks:
       - monitoring
     depends_on:
