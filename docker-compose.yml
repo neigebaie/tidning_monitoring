@@ -29,10 +29,13 @@ services:
     container_name: telegraf
     user: "1000:993"
     volumes:
+      - /:/hostfs:ro
       - /var/run/docker.sock:/var/run/docker.sock
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     environment:
       TZ: "Europe/Paris"
+      HOST_PROC: "/hostfs/proc"
+      HOST_MOUNT_PREFIX: "/hostfs"
     networks:
       - monitoring
     depends_on:
