@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: telegraf
+      POSTGRES_PASSWORD: telegraf
+      POSTGRES_DB: telegraf
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - monitoring
+
+  telegraf:
+    build: ./telegraf
+    container_name: telegraf
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    networks:
+      - monitoring
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  grafana_data:
+
+networks:
+  monitoring:
+    driver: bridge
