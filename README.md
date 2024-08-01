@@ -1,6 +1,6 @@
 # Tidning Monitoring with Telegraf, PostgreSQL, and Grafana
 
-This project sets up a monitoring stack for Raspberry Pi using Telegraf, PostgreSQL, and Grafana. It collects system and Docker container metrics, stores them in PostgreSQL, and visualizes the data with Grafana dashboards.
+This project sets up a monitoring stack using Telegraf, PostgreSQL, and Grafana. It collects system and Docker container metrics, stores them in PostgreSQL, and visualizes the data with Grafana dashboards.
 
 ## Prerequisites
 
@@ -16,7 +16,9 @@ git clone https://github.com/yourusername/rpi-monitoring-stack.git
 cd rpi-monitoring-stack
 ```
 
-### 2. Build and Start the Containers
+### 2. Modify the environment variables to suit your needs
+
+### 3. Build and Start the Containers
 
 ```bash
 docker-compose up -d
@@ -24,9 +26,9 @@ docker-compose up -d
 
 This command will build the Telegraf image and start all services (Telegraf, PostgreSQL, and Grafana) in the background.
 
-### 3. Access Grafana
+### 4. Access Grafana
 
-Open a web browser and navigate to `http://<ip_address>:3000`. Log in with the default username `admin` and the password you set. You'll be prompted to change the password on first login.
+Open a web browser and navigate to `http://<ip_address>:3025`. Log in with the default username `admin` and the password you set.
 
 ### 4. Configure Grafana Data Source
 
