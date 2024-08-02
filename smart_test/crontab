@@ -1,0 +1,1 @@
+0 0 * * * root /home/pauls/telegraf_monitoring/smart_test/smart_test.sh >> /var/log/smart_test.log 2>&1

@@ -1,2 +1,0 @@
-# /etc/cron.d/smart_cron: crontab file for running the SMART test
-0 0 * * * root /usr/local/bin/smart_test.sh >> /var/log/smart_test.log 2>&1
