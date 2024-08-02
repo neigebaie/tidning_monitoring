@@ -4,6 +4,9 @@ FROM telegraf:latest
 # Install cron
 RUN apt-get update && apt-get install -y cron smartmontools
 
+# Create a directory for the cron PID file
+RUN mkdir -p /var/run/crond && chown root:root /var/run/crond
+
 # Add the crontab file
 COPY crontab /etc/cron.d/smart_cron
 
@@ -30,5 +33,11 @@ EXPOSE 8125/udp
 EXPOSE 8092/udp
 EXPOSE 8094
 
-# Start cron and Telegraf
-CMD cron && telegraf
+# Add an entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Give execution rights on the entrypoint script
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Use the entrypoint script to start both cron and Telegraf
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
