@@ -5,7 +5,8 @@ FROM grafana/grafana:latest
 # For example, to install a plugin:
 # RUN grafana-cli plugins install <plugin-name>
 
-COPY grafana.ini /etc/grafana/grafana.ini
+COPY grafana.ini /etc/grafana/custom.ini
+ENV GF_PATHS_CONFIG="/etc/grafana/custom.ini"
 
 EXPOSE 3000
 
