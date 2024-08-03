@@ -5,6 +5,8 @@ FROM grafana/grafana:latest
 # For example, to install a plugin:
 # RUN grafana-cli plugins install <plugin-name>
 
+COPY grafana.ini /etc/grafana/grafana.ini
+
 EXPOSE 3000
 
 CMD ["grafana-server"]

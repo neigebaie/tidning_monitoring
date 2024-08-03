@@ -1,0 +1,9 @@
+#################################### SMTP / Emailing ##########################
+[smtp]
+enabled = true
+host = 
+user = 
+# If the password contains # or ; you have to wrap it with triple quotes. Ex """#password;"""
+password = 
+from_address = 
+from_name = 
