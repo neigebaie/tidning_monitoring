@@ -25,6 +25,12 @@ RUN mkdir -p /var/lib/postgresql/data && chown -R postgres:postgres /var/lib/pos
 # Initialize database if not already initialized
 RUN su postgres -c 'initdb -D /var/lib/postgresql/data'
 
+# Set listen_addresses to '*'
+RUN echo "listen_addresses = '*'" >> /var/lib/postgresql/data/postgresql.conf
+
+# Allow all hosts to connect (for demo/dev only; restrict in production!)
+RUN echo "host all all 0.0.0.0/0 md5" >> /var/lib/postgresql/data/pg_hba.conf
+
 ENV PGDATA=/var/lib/postgresql/data
 
 # Entrypoint
