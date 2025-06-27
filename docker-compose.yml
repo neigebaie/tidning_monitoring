@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:15
+    build: ./postgres
     container_name: postgres
     environment:
       POSTGRES_USER: telegraf
@@ -8,6 +8,7 @@ services:
       POSTGRES_DB: telegraf
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init-retention.sql:/docker-entrypoint-initdb.d/init-retention.sql:ro
     networks:
       - monitoring
 

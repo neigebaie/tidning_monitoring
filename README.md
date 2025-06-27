@@ -45,6 +45,14 @@ Open a web browser and navigate to `http://<ip_address>:3025`. Log in with the d
 
 Use Grafana's query editor to create custom dashboards and visualize the metrics collected by Telegraf. You can display metrics like CPU usage, memory usage, disk I/O, network traffic, and Docker container stats.
 
+## PostgreSQL Retention Policy with pg_cron
+
+This project uses a custom Postgres image with the pg_cron extension to automatically delete metrics older than 30 days. The retention policy is set up via an init script mounted into the container.
+
+- The Postgres Dockerfile installs pg_cron and enables it.
+- The `init-retention.sql` script creates the extension and schedules a daily job to delete old data.
+- See `postgres/Dockerfile` and `postgres/init-retention.sql` for details.
+
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
