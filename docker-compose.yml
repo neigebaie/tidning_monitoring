@@ -9,6 +9,8 @@ services:
     env_file: .env
     volumes:
       - grafana_data:/var/lib/grafana
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
   grafana_data:
+  postgres_data:
