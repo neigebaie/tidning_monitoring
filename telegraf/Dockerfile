@@ -1,5 +1,5 @@
 # Telegraf Dockerfile
-FROM telegraf:latest
+FROM telegraf:alpine
 
 # Add the Telegraf configuration file
 COPY telegraf.conf /etc/telegraf/telegraf.conf
