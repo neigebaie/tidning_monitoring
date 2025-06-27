@@ -31,6 +31,9 @@ RUN echo "listen_addresses = '*'" >> /var/lib/postgresql/data/postgresql.conf
 # Allow all hosts to connect (for demo/dev only; restrict in production!)
 RUN echo "host all all 0.0.0.0/0 md5" >> /var/lib/postgresql/data/pg_hba.conf
 
+# Add pg_cron to shared_preload_libraries
+RUN echo "shared_preload_libraries = 'pg_cron'" >> /var/lib/postgresql/data/postgresql.conf
+
 ENV PGDATA=/var/lib/postgresql/data
 
 # Entrypoint

@@ -24,6 +24,7 @@ EOSQL
 # Enable pg_cron and schedule cleanup for all tables with a 'time' column
 psql -U postgres -d telegraf -h localhost <<-EOSQL
 CREATE EXTENSION IF NOT EXISTS pg_cron;
+SET search_path = public, cron;
 
 -- Schedule a daily job at 2:00 AM to delete old rows from each table with a 'time' column
 SELECT cron.schedule('delete_old_cpu', '0 2 * * *', \$\$ DELETE FROM cpu WHERE time < NOW() - INTERVAL '30 days'; \$\$);
