@@ -34,5 +34,7 @@ SELECT cron.schedule('delete_old_net', '0 2 * * *', \$\$ DELETE FROM net WHERE t
 SELECT cron.schedule('delete_old_temp', '0 2 * * *', \$\$ DELETE FROM temp WHERE time < NOW() - INTERVAL '30 days'; \$\$);
 EOSQL
 
+echo "Up and running!"
+
 # Wait for all background jobs (supervisord) to finish
 wait
