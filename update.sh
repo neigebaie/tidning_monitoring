@@ -31,7 +31,7 @@ else
     exit 1
 fi
 
-# echo -e "${GREEN}Pruning unused Docker images...${NC}"
-# sudo docker image prune -f
+echo -e "${GREEN}Pruning unused Docker images...${NC}"
+sudo docker image prune -f
 
 echo -e "${GREEN}Update process completed successfully!${NC}"
