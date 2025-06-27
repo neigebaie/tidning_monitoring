@@ -26,25 +26,11 @@ psql -U postgres -d telegraf -h localhost <<-EOSQL
 CREATE EXTENSION IF NOT EXISTS pg_cron;
 
 -- Schedule a daily job at 2:00 AM to delete old rows from each table with a 'time' column
-SELECT cron.schedule('delete_old_cpu', '0 2 * * *', $$
-  DELETE FROM cpu WHERE time < NOW() - INTERVAL '30 days';
-$$);
-
-SELECT cron.schedule('delete_old_disk', '0 2 * * *', $$
-  DELETE FROM disk WHERE time < NOW() - INTERVAL '30 days';
-$$);
-
-SELECT cron.schedule('delete_old_mem', '0 2 * * *', $$
-  DELETE FROM mem WHERE time < NOW() - INTERVAL '30 days';
-$$);
-
-SELECT cron.schedule('delete_old_net', '0 2 * * *', $$
-  DELETE FROM net WHERE time < NOW() - INTERVAL '30 days';
-$$);
-
-SELECT cron.schedule('delete_old_temp', '0 2 * * *', $$
-  DELETE FROM temp WHERE time < NOW() - INTERVAL '30 days';
-$$);
+SELECT cron.schedule('delete_old_cpu', '0 2 * * *', $$DELETE FROM cpu WHERE time < NOW() - INTERVAL '30 days';$$);
+SELECT cron.schedule('delete_old_disk', '0 2 * * *', $$DELETE FROM disk WHERE time < NOW() - INTERVAL '30 days';$$);
+SELECT cron.schedule('delete_old_mem', '0 2 * * *', $$DELETE FROM mem WHERE time < NOW() - INTERVAL '30 days';$$);
+SELECT cron.schedule('delete_old_net', '0 2 * * *', $$DELETE FROM net WHERE time < NOW() - INTERVAL '30 days';$$);
+SELECT cron.schedule('delete_old_temp', '0 2 * * *', $$DELETE FROM temp WHERE time < NOW() - INTERVAL '30 days';$$);
 EOSQL
 
 # Wait for all background jobs (supervisord) to finish
