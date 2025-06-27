@@ -1,52 +1,18 @@
 services:
-  postgres:
-    build: ./postgres
-    container_name: postgres
-    environment:
-      POSTGRES_USER: telegraf
-      POSTGRES_PASSWORD: telegraf
-      POSTGRES_DB: telegraf
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./postgres/init-retention.sql:/docker-entrypoint-initdb.d/init-retention.sql:ro
-    networks:
-      - monitoring
-
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
+  tidning_monitoring:
+    build: .
+    container_name: tidning_monitoring
+    restart: unless-stopped
     ports:
-      - "3025:3000"
-    environment:
-      TZ: "Europe/Paris"
-      GF_SECURITY_ADMIN_PASSWORD: grafana
+      - 3025:3000
+    env_file: .env
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
-    networks:
-      - monitoring
-
-  telegraf:
-    build: ./telegraf
-    container_name: telegraf
-    user: "1000:993"
-    volumes:
-      - /:/hostfs:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
-    environment:
-      TZ: "Europe/Paris"
-      HOST_PROC: "/hostfs/proc"
-      HOST_MOUNT_PREFIX: "/hostfs"
-    networks:
-      - monitoring
-    depends_on:
-      - postgres
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc:/host/etc:ro
+      - /var/run/utmp:/var/run/utmp:ro
+      - /dev:/host/dev:ro
 
 volumes:
-  postgres_data:
   grafana_data:
-
-networks:
-  monitoring:
-    driver: bridge

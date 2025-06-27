@@ -1,7 +1,0 @@
-# /etc/cron.d/smart_cron: crontab file for running the SMART test
-
-# Run short SMART test daily at midnight
-0 0 * * * root /home/pauls/tidning_monitoring/smart_test/smart_test.sh short >> /var/log/smart_test.log 2>&1
-
-# Run long SMART test weekly on Sunday at 1 AM
-0 1 * * 0 root /home/pauls/tidning_monitoring/smart_test/smart_test.sh long >> /var/log/smart_test.log 2>&1
