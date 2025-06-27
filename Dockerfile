@@ -33,6 +33,7 @@ RUN echo "host all all 0.0.0.0/0 md5" >> /var/lib/postgresql/data/pg_hba.conf
 
 # Add pg_cron to shared_preload_libraries
 RUN echo "shared_preload_libraries = 'pg_cron'" >> /var/lib/postgresql/data/postgresql.conf
+RUN echo "cron.database_name = 'telegraf'" >> /var/lib/postgresql/data/postgresql.conf
 
 ENV PGDATA=/var/lib/postgresql/data
 
