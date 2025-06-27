@@ -21,5 +21,17 @@ END
 CREATE DATABASE telegraf OWNER telegraf;
 EOSQL
 
+# Enable pg_cron and schedule cleanup for all tables with a 'time' column
+psql -U postgres -d telegraf -h localhost <<-EOSQL
+CREATE EXTENSION IF NOT EXISTS pg_cron;
+
+-- Schedule a daily job at 2:00 AM to delete old rows from the 'metrics' table
+SELECT cron.schedule('delete_old_metrics', '0 2 * * *', $$
+  DELETE FROM metrics WHERE time < NOW() - INTERVAL '30 days';
+$$);
+
+-- Repeat the above SELECT for any other tables with a 'time' column
+EOSQL
+
 # Wait for all background jobs (supervisord) to finish
 wait

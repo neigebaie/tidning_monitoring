@@ -5,14 +5,10 @@ services:
     restart: unless-stopped
     ports:
       - 3025:3000
+      - 5000:5432
     env_file: .env
     volumes:
       - grafana_data:/var/lib/grafana
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /etc:/host/etc:ro
-      - /var/run/utmp:/var/run/utmp:ro
-      - /dev:/host/dev:ro
 
 volumes:
   grafana_data:
